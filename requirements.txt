@@ -1,0 +1,11 @@
+streamlit==1.47.0
+torch==2.6.0
+compressai==1.1.5
+tifffile==2025.3.30
+numpy==1.26.4
+pandas==2.3.1
+scikit-image==0.25.2
+pillow==11.1.0
+fsspec==2025.3.2
+tqdm==4.67.1
+jinja2==3.1.6
