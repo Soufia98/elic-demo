@@ -13,9 +13,7 @@ from pathlib import Path
 # —————————————————————————————
 import sys
 BASE_DIR = Path(__file__).parent
-sys.path.insert(0, str(BASE_DIR / "ELiC_ReImplemetation"))
-from Network import TestModel  # selon votre arborescence exacte
-
+from ELIC_ReImplemetation.Network import TestModel
 from compressai.zoo import bmshj2018_factorized
 
 # —————————————————————————————
