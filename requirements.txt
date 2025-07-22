@@ -1,6 +1,5 @@
 streamlit==1.47.0
 torch==2.6.0
-compressai==1.1.5
 tifffile==2025.3.30
 numpy==1.26.4
 pandas==2.3.1

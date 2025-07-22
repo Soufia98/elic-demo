@@ -4,17 +4,11 @@ import streamlit as st
 st.title("Tile Compression Dashboard")
 st.write("✅ L’interface est prête ! Cliquez sur ‘Init models’ pour charger le modèle.")
 
-# Choix du modèle
-type_model = st.sidebar.selectbox("Choisir le modèle", ["ELIC", "BMSHJ2018"])
-elic_path = None
-quality = None
-if type_model == "ELIC":
-    elic_path = st.sidebar.text_input(
-        "Chemin du modèle ELIC",
-        "/home/appuser/models/ELIC_0150_ft_3980_Plateau.pth.tar"
-    )
-else:
-    quality = st.sidebar.selectbox("Qualité BMSHJ2018", [6, 4, 2])
+# Forcer le modèle ELIC (plus de BMSHJ2018)
+elic_path = st.sidebar.text_input(
+    "Chemin du modèle ELIC",
+    "/home/appuser/models/ELIC_0150_ft_3980_Plateau.pth.tar"
+)
 
 # Upload des fichiers
 st.sidebar.markdown("### Fichiers requis")
@@ -26,33 +20,24 @@ jar_file  = st.sidebar.file_uploader("Jar ComputeMetrics (.jar)", type=["jar"])
 # Étape 1 : init models
 if st.sidebar.button("Init models"):
     st.write("⏳ Import des bibliothèques lourdes…")
-    # Imports différés
     import os, time, numpy as np, tempfile, subprocess
     import torch
     import tifffile
     from ELiC_ReImplemetation.Network import TestModel
-    from compressai.zoo import bmshj2018_factorized
 
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     st.write("🖥️ Environnement :", device.upper())
 
-    # Chargement du modèle
-    if type_model == "ELIC":
-        st.write("⏳ Chargement du modèle ELIC…")
-        t0 = time.time()
-        model = TestModel(N=192, M=320, num_slices=5).to(device)
-        ck = torch.load(elic_path, map_location=device)
-        if isinstance(ck, dict) and 'state_dict' in ck:
-            ck = ck['state_dict']
-        model.load_state_dict(ck)
-        model.eval(); model.update(force=True)
-        st.write(f"✅ ELIC chargé en {time.time()-t0:.1f}s")
-    else:
-        st.write(f"⏳ Chargement du modèle BMSHJ2018 (qualité={quality})…")
-        t0 = time.time()
-        model = bmshj2018_factorized(quality=quality, metric='mse', pretrained=True).to(device)
-        model.eval()
-        st.write(f"✅ BMSHJ2018 chargé en {time.time()-t0:.1f}s")
+    # Chargement du modèle ELIC
+    st.write("⏳ Chargement du modèle ELIC…")
+    t0 = time.time()
+    model = TestModel(N=192, M=320, num_slices=5).to(device)
+    ck = torch.load(elic_path, map_location=device)
+    if isinstance(ck, dict) and 'state_dict' in ck:
+        ck = ck['state_dict']
+    model.load_state_dict(ck)
+    model.eval(); model.update(force=True)
+    st.write(f"✅ ELIC chargé en {time.time()-t0:.1f}s")
 
     # Étape 2 : exécution du pipeline
     if st.sidebar.button("Lancer compression/décompression"):
