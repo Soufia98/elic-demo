@@ -1,21 +1,36 @@
 import os
-import time
+import subprocess
+import sys
+from pathlib import Path
+
+# ------------------------------------------------------------------
+# 0. Clonage dynamique du dépôt ELiC_ReImplemetation s’il n’existe pas
+# ------------------------------------------------------------------
+BASE_DIR = Path(__file__).parent
+SRC_DIR  = BASE_DIR / "ELiC_ReImplemetation"
+
+if not SRC_DIR.exists():
+    # Clone en depth=1 pour gagner du temps
+    subprocess.run([
+        "git", "clone", "--depth", "1",
+        "https://github.com/VincentChandelier/ELiC-ReImplemetation.git",
+        str(SRC_DIR)
+    ], check=True)
+
+# Ajout au PYTHONPATH pour pouvoir importer Network.py
+sys.path.insert(0, str(SRC_DIR))
+
+# À présent l’import ne lèvera plus d’erreur
+from Network import TestModel
+from compressai.zoo import bmshj2018_factorized
+
+import streamlit as st
 import torch
 import tifffile
 import numpy as np
-import subprocess
 import tempfile
-import streamlit as st
-from pathlib import Path
-
-# —————————————————————————————
-# 0. Ajout du sous-module ELiC_ReImplemetation
-# —————————————————————————————
-import sys
-BASE_DIR = Path(__file__).parent
-from ELIC_ReImplemetation.Network import TestModel
-from compressai.zoo import bmshj2018_factorized
-
+import time
+import subprocess
 # —————————————————————————————
 # 1. Caching des modèles
 # —————————————————————————————
