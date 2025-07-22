@@ -1,5 +1,8 @@
+# requirements.txt
+-f https://download.pytorch.org/whl/cpu/torch_stable.html
 streamlit==1.47.0
-torch==2.6.0
+torch==2.6.0+cpu
+compressai==1.1.5
 tifffile==2025.3.30
 numpy==1.26.4
 pandas==2.3.1
