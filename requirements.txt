@@ -1,14 +1,13 @@
-# requirements.txt
+# requirements.txt (à la racine de votre repo)
 -f https://download.pytorch.org/whl/cpu/torch_stable.html
 streamlit==1.47.0
 torch==2.6.0
-timm>=0.9.4
 compressai==1.1.5
-tifffile==2025.3.30
-numpy==1.26.4
-pandas==2.3.1
-scikit-image==0.25.2
-pillow==11.1.0
-fsspec==2025.3.2
-tqdm==4.67.1
-jinja2==3.1.6
+
+# on force quand même les libs manquantes ou à jour
+timm>=0.9.4
+thop
+ptflops
+
+# puis on importe tout ce qui est listé dans ELiC_ReImplemetation/requirements.txt
+-r ELiC_ReImplemetation/requirements.txt
