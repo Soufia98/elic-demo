@@ -3,7 +3,7 @@
 streamlit==1.47.0
 torch==2.6.0
 
-# vos utilitaires
+# dépendances directes de votre app
 compressai==1.1.5
 tifffile==2025.3.30
 numpy==1.26.4
@@ -14,10 +14,11 @@ fsspec==2025.3.2
 tqdm==4.67.1
 jinja2==3.1.6
 
-# paquets C-extensions
+# paquets C-extensions requis par ELIC_ReImplemetation
 Cython>=0.29
+timm>=0.9.4
 thop
 ptflops
 
-# enfin, toutes les deps listées par le sous-répertoire ELiC_ReImplemetation
--r ELiC_ReImplemetation/requirements.txt
+# enfin, importe tout ce qu’il y a dans ELIC_ReImplemetation/requirements.txt
+-r ELIC_ReImplemetation/requirements.txt
