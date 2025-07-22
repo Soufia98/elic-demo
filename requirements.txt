@@ -21,4 +21,4 @@ thop
 ptflops
 
 # enfin, importe tout ce qu’il y a dans ELIC_ReImplemetation/requirements.txt
--r ELIC_ReImplemetation/requirements.txt
+-r ELiC_ReImplemetation/requirements.txt
