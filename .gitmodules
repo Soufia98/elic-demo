@@ -1,0 +1,3 @@
+[submodule "ELIC_ReImplemetation"]
+	path = ELIC_ReImplemetation
+	url = https://github.com/VincentChandelier/ELiC-ReImplemetation.git
